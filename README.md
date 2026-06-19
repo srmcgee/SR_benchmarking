@@ -69,7 +69,7 @@ The resulting value divided by the **total adjusted read length** is the **misma
 
 # Low-complexity region analysis
 
-A **low-complexity region analysis** can be performed by filtering the SNM and indel mismatch details output bed files on the appropriate genomic low-complexity regions found in the [GA4GH database](https://github.com/usnistgov/giab-stratifications). Low-complexity region bed files for the HG002 and COLO829BL Donor-specific Assemblies (DSAs), as well as for the GRCh38 reference are provided in the resources directory.
+A **low-complexity region analysis** can be performed by filtering the SNM and indel mismatch details output bed files on the appropriate genomic low-complexity regions found in the [GA4GH database](https://github.com/usnistgov/giab-stratifications). Low-complexity region bed files for the HG002 and COLO829BL Donor-specific Assemblies (DSAs), as well as for the GRCh38 reference will be provided in the Git Large File Storage (Git LFS) resources directory soon.
 
 For example, to determine the number of insertion mismatches that fall into the low-complexity regions of the reference your sample was mapped to, first use `bedtools` to create a new file containing only events that fall into the defined low-complexity regions:
 ```bash
