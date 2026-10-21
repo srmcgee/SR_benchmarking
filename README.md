@@ -78,6 +78,12 @@ bedtools intersect -header -wa -a [path_to_output_files]/insertion.details.[run_
 
 Then you can use the **base quality filtering** step from above to do any further analysis of those events based on their BQ values.
 
+Low-complexity region bed files for both the COLO829BL-DSA and the H002-DSA, created by lifting-over the low-complexity regions defined in the GA4GH GRCh38 database to the respective DSA, are included in this release for use with the above "_bedtools intersect ..._" command (approx. 130 MB each):
+
+- [COLO829BL-DSA.low-complexity.bed](https://github.com/srmcgee/SR_benchmarking/releases/download/v1.0.0/GRCh38_AllTandemRepeatsandHomopolymers_slop5_rbliftover_to_COLO829BL_DSA.sorted.bed.gz)
+- [HG002-DSA.low-complexity.bed](https://github.com/srmcgee/SR_benchmarking/releases/download/v1.0.0/GRCh38_AllTandemRepeatsandHomopolymers_slop5_rbliftover_to_hg002v1.0.1_1_2_sorted.bed.gz)
+
+
 # Logfile
 **logfile.[run_prefix].txt**
 
@@ -112,3 +118,13 @@ bwa-mem2 mem -t 4 [reference_fasta] [read_1_fastq] [[read_2_fastq]] > [output_SA
 samtools sort -@ 4 -O BAM -o [output_BAM_file] [output_SAM_file]
 samtools index -@ 4 [output_BAM_file]
 ```
+
+If mapping to the COLO829BL DSA, you may wish to filter out events that occur in known problematic regions of that reference, contained in **[DSA_COLO829BL_v3.0.0_Flagger-NucFlag.bed](https://github.com/srmcgee/SR_benchmarking/releases/download/v1.0.0/DSA_COLO829BL_v3.0.0_Flagger-NucFlag.bed.gz)**, with the following command:
+```bash
+bedtools intersect -abam [output_BAM_file] -b DSA_COLO829BL_v3.0.0_Flagger-NucFlag.bed -v > [output_filtered_BAM_file]
+samtools index [output_filtered_BAM_file]
+```
+Two DSA reference_fasta files are included in this release for use in the above "_bwa-mem2 mem ..._" command (approx. 1.6 GB each):
+- [COLO829BL-DSA.v3.0.0.fasta](https://github.com/srmcgee/SR_benchmarking/releases/download/v1.0.0/DSA_COLO829BL_v3.0.0.fasta.gz)
+- [HG002-DSA.v1.0.1.fasta](https://github.com/srmcgee/SR_benchmarking/releases/download/v1.0.0/hg002v1.0.1.fasta.gz)
+  
